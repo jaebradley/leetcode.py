@@ -24,20 +24,25 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum
 class Solution(object):
     def canJump(self, nums):
         """
+        Strategy is to keep track of the maximum index that can be reached.
+
+        There 1 way to change the maximum index.
+
+        Using the number at a given index and then adding the current index to that number - this should
+        give the maximum index reachable from that index. If this number is greater than the current max
+        index, then use it.
+
+        If the current index is greater than the max index, return False. This means an index was reached that
+        a value at an index slot + the index value at that slot did not equal or surpass that index.
+
         :type nums: List[int]
         :rtype: bool
         """
-        if len(nums) <= 0:
-            return False
-
-        counter = nums[0]
-
+        maximum_index = 0
         for index, num in enumerate(nums):
-            counter -= index + 1
-
-            if counter < 0:
+            if index > maximum_index:
                 return False
 
-            counter += num
+            maximum_index = max(num + index, maximum_index)
 
         return True
