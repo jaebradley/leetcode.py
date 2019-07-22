@@ -22,3 +22,28 @@ class TestWordSearch(TestCase):
 
     def test_word_does_not_exist_2(self):
         self.assertFalse(Solution().exist(self.board, "SAF"))
+
+
+class TestSingleWordSearch(TestCase):
+    def setUp(self):
+        self.board = [["A"]]
+
+    def test_word_exists(self):
+        self.assertTrue(Solution().exist(self.board, "A"))
+
+    def test_word_does_not_exist(self):
+        self.assertFalse(Solution().exist(self.board, "B"))
+
+
+class TestDoubleWordSearch(TestCase):
+    def setUp(self):
+        self.board = [["A", "B"]]
+
+    def test_reverse_word_exists(self):
+        self.assertTrue(Solution().exist(self.board, "BA"))
+
+    def test_word_exists(self):
+        self.assertTrue(Solution().exist(self.board, "AB"))
+
+    def test_word_does_not_exist(self):
+        self.assertFalse(Solution().exist(self.board, "AA"))

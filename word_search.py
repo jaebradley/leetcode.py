@@ -25,10 +25,8 @@ class Solution(object):
 
         for y, row in enumerate(board):
             for x, cell in enumerate(row):
-                if tuple([x, y]) not in visited_cells:
-                    search_result = self.search(x, y, visited_cells, word, board)
-                    if search_result is True:
-                        return True
+                if self.search(x, y, visited_cells, word, board):
+                    return True
 
         return False
 
@@ -39,30 +37,25 @@ class Solution(object):
         if len(word) == 0:
             return True
 
-        visited_cells.add(tuple([x, y]))
+        if board[y][x] == word[0] and len(word) == 1:
+            return True
 
         if board[y][x] != word[0]:
             return False
 
-        if len(board[0]) - 1 > x:
-            search_result = self.search(x + 1, y, visited_cells, word[1:], board)
-            if search_result is True:
-                return True
+        visited_cells.add(tuple([x, y]))
 
-        if 0 < y:
-            search_result = self.search(x, y - 1, visited_cells, word[1:], board)
-            if search_result is True:
-                return True
+        if len(board[0]) - 1 > x and self.search(x + 1, y, visited_cells, word[1:], board):
+            return True
 
-        if 0 < x:
-            search_result = self.search(x - 1, y, visited_cells, word[1:], board)
-            if search_result is True:
-                return True
+        if 0 < y and self.search(x, y - 1, visited_cells, word[1:], board):
+            return True
 
-        if len(board) - 1 > y:
-            search_result = self.search(x, y + 1, visited_cells, word[1:], board)
-            if search_result is True:
-                return True
+        if 0 < x and self.search(x - 1, y, visited_cells, word[1:], board):
+            return True
+
+        if len(board) - 1 > y and self.search(x, y + 1, visited_cells, word[1:], board):
+            return True
 
         visited_cells.discard(tuple([x, y]))
 
