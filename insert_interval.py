@@ -32,7 +32,7 @@ class Solution(object):
         results = []
         index = 0
 
-        while intervals[index][1] < newInterval[0]:
+        while index < len(intervals) and intervals[index][1] < newInterval[0]:
             results.append(intervals[index])
             index += 1
 
