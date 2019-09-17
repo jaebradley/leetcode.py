@@ -40,6 +40,8 @@ class Solution(object):
         :type n: int
         :rtype: List[TreeNode]
         """
+        if n == 0:
+            return []
         return self.helper(1, n)
 
     def helper(self, start, end):
