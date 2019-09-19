@@ -32,6 +32,8 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 class Solution(object):
     def canPartition(self, nums):
         """
+        The idea is that after processing each number, whether or not a value in the range of the target sum is reachable
+        is a function of whether or not the value was previously reachable
         :type nums: List[int]
         :rtype: bool
         """
@@ -39,28 +41,17 @@ class Solution(object):
             return False
 
         target_sum = int(sum(nums) / 2)
-        visited_numbers = set()
-        return self.helper(nums, visited_numbers, 0, target_sum, 0, 2)
 
-    def helper(self, nums, visited_numbers, total_sum, target_sum, starting_index, k):
-        if k == 0:
-            return True
+        dp = [True] + [False] * target_sum
 
-        if total_sum > target_sum:
-            return False
+        for num in nums:
+            dp = [
+                dp[previous_sum]
+                or (previous_sum >= num and dp[previous_sum - num])
+                for previous_sum in range(target_sum + 1)
+            ]
 
-        if total_sum == target_sum:
-            return self.helper(nums, visited_numbers, 0, target_sum, k - 1, 0)
-
-        if total_sum < target_sum:
-            for index in range(starting_index, len(nums)):
-                if index not in visited_numbers:
-                    visited_numbers.add(index)
-
-                    if self.helper(nums, visited_numbers, total_sum + nums[index], target_sum, k, index + 1):
-                        return True
-
-                    visited_numbers.remove(index)
+            if dp[target_sum]:
+                return True
 
         return False
-
