@@ -13,13 +13,9 @@ class TestWithoutRemoval(TestCase):
 
 class TestSingleRemoval(TestCase):
     def test_single_removal_with_two_valid_solutions(self):
-        self.assertEqual(
-            [
-                "()()()",
-                "(())()",
-            ],
-            Solution().removeInvalidParentheses("()())()")
-        )
+        valid_values = Solution().removeInvalidParentheses("()())()")
+        self.assertIn("(())()", valid_values)
+        self.assertIn("()()()", valid_values)
 
     def test_single_removal_with_two_valid_solutions_with_non_parentheses_character(self):
         valid_values = Solution().removeInvalidParentheses("(a)())()")
