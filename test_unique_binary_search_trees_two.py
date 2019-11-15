@@ -7,7 +7,7 @@ from unique_binary_search_trees_two import Solution
 class TestUniqueBinarySearchTreesTwo(TestCase):
     def test_zero(self):
         self.assertEqual(
-            [None],
+            [],
             Solution().generateTrees(0)
         )
 

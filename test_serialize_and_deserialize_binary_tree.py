@@ -12,7 +12,7 @@ class TestCodec(TestCase):
         root.right.left = TreeNode(4)
         root.right.right = TreeNode(5)
         self.assertEqual(
-            "1 2 3 none none 4 5",
+            "1 2 3 none none 4 5 none none none none",
             Codec().serialize(root)
         )
 
